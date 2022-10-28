@@ -37,16 +37,6 @@ abstract class Smartphone {
 class Iphone extends Smartphone {}
 class SamsungGalaxy extends Smartphone {}
 
-// let firstUser = new Utente("Bruno", "Stano");
-// let secondUser = new Utente("Giovanni", "Urso");
-// let thirdUser = new Utente("Nicola", "Lerra");
-// let firstIphone = new Iphone();
-// let firstSamsungGalaxy = new SamsungGalaxy();
-
-// firstUser.smartphone = firstIphone;
-
-// console.log(firstUser);
-
 let utente: Utente;
 let nuovoSmartphone: Smartphone;
 
