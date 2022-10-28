@@ -4,8 +4,53 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="./assets/js/script.js"></script>
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="homepage">
+      <p>Vorresti comprare uno Smartphone?</p>
+      <input id="nome-input" type="text" placeholder="Nome" />
+      <input id="cognome-input" type="text" placeholder="Cognome" />
+      <button id="procedi">Procedi</button>
+    </div>
+    <div id="container">
+      <a href="./index.html"><h1 id="home">< TORNA ALL'HOME</h1></a>
+      <h1 id="title">COMPRA UNO SMARTPHONE</h1>
+      <div id="smartphones">
+        <div id="iphone" class="smartphone">
+          <h3>iPhone</h3>
+          <img id="iphone-start-img" src="./assets/img/Iphone.png" alt="iPhone" />
+          <img id="iphone-img" src="./assets/img/iPhone_Blank.png" alt="iPhone" />
+          <p></p>
+          <p>Credito: <span id="credito">0.00</span>€ <span id="aggiungi-ricarica">+ AGGIUNGI</span></p>
+          <p>Numero Chiamate: <span id="numero-chiamate">0</span></p>
+        </div>
+        <div id="samsung-galaxy" class="smartphone">
+          <h3>Samsung Galaxy</h3>
+          <img id="samsung-galaxy-start-img" src="./assets/img/SamsungGalaxy.png" alt="Samsung Galaxy" />
+          <img id="samsung-galaxy-img" src="./assets/img/SamsungGalaxy_Blank.png" alt="Samsung Galaxy" />
+          <p></p>
+          <p>Credito: <span id="credito">0.00</span>€ <span id="aggiungi-ricarica">+ AGGIUNGI</span></p>
+          <p>Numero Chiamate: <span id="numero-chiamate">0</span></p>
+        </div>
+        <div id="tastiera-chiamata">
+          <input id="output-numeri" type="text" readonly />
+          <span id="1">1</span>
+          <span id="2">2</span>
+          <span id="3">3</span>
+          <span id="4">4</span>
+          <span id="5">5</span>
+          <span id="6">6</span>
+          <span id="7">7</span>
+          <span id="8">8</span>
+          <span id="9">9</span>
+          <span id="fine-chiamata"><</span>
+          <span id="0">0</span>
+          <span id="inizio-chiamata">></span>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
