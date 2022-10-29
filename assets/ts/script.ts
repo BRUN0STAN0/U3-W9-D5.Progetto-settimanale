@@ -12,6 +12,7 @@ class Utente {
 abstract class Smartphone {
   carica = 0;
   numeroChiamate = 0;
+  modello?: string;
   setRicarica(number: number): number {
     return (this.carica += number);
   }
@@ -34,8 +35,12 @@ abstract class Smartphone {
   }
 }
 
-class Iphone extends Smartphone {}
-class SamsungGalaxy extends Smartphone {}
+class Iphone extends Smartphone {
+  modello = "Iphone";
+}
+class SamsungGalaxy extends Smartphone {
+  modello = "SamsungGalaxy";
+}
 
 let utente: Utente;
 let nuovoSmartphone: Smartphone;
@@ -52,7 +57,7 @@ let tastieraChiamata: HTMLDivElement;
 let title: HTMLHeadElement;
 let home: HTMLHeadElement;
 let smartphones: any;
-let paragraphs: any;
+let display: HTMLDivElement;
 
 let homepage: HTMLDivElement;
 let container: HTMLDivElement;
@@ -69,6 +74,8 @@ let numeroChiamate: any;
 let aggiungiRicarica: any;
 let charge: string | null;
 let call: string | null;
+let numbers: any;
+let objectDisplay: HTMLDivElement;
 
 //* END GLOBAL VARIABLES FROM DOM
 
@@ -86,7 +93,7 @@ function getDOM() {
   smartphones = document.querySelectorAll(".smartphone");
   title = document.querySelector("#title") as HTMLHeadElement;
   home = document.querySelector("#home") as HTMLHeadElement;
-  paragraphs = document.querySelectorAll("p");
+  display = document.querySelector("#display") as HTMLDivElement;
   tastieraChiamata = document.querySelector("#tastiera-chiamata") as HTMLDivElement;
 
   procediButton = document.querySelector("#procedi") as HTMLButtonElement;
@@ -100,29 +107,27 @@ function getDOM() {
   credito = document.querySelectorAll("#credito");
   numeroChiamate = document.querySelectorAll("#numero-chiamate");
   aggiungiRicarica = document.querySelectorAll("#aggiungi-ricarica");
+  numbers = document.querySelectorAll(".number");
+  objectDisplay = document.querySelector("#object-display") as HTMLDivElement;
 
   fineChiamata.addEventListener("click", resetCall);
-
-  for (let aggRic of aggiungiRicarica) {
-    aggRic.addEventListener("click", addCharge);
-  }
+  for (let number of numbers) number.addEventListener("click", (e: any) => (outputNumeri.value += e.target.id));
+  for (let aggRic of aggiungiRicarica) aggRic.addEventListener("click", addCharge);
   inizioChiamata.addEventListener("click", startCall);
   procediButton.addEventListener("click", nuovoUtente);
-  for (let smartphone of smartphones) {
-    smartphone.addEventListener("click", chooseSmartphone);
-  }
+  for (let smartphone of smartphones) smartphone.addEventListener("click", chooseSmartphone);
 }
 
+//* QUI SI CREA UN NUOVO UTENTE
 function nuovoUtente() {
   utente = new Utente(nome.value, cognome.value);
   homepage.style.display = "none";
   container.style.display = "flex";
 }
 
+//* QUI SI CREA UN NUOVO SMARTPHONE
 function chooseSmartphone(eventClick: any) {
-  for (let paragraph of paragraphs) {
-    paragraph.style.display = "block";
-  }
+  display.style.display = "block";
   if (eventClick.target.id === "iphone-start-img") {
     iphone.style.display = "none";
     iphone_blank.style.display = "block";
@@ -156,12 +161,16 @@ function startCall() {
   for (let num of numeroChiamate) num.innerHTML = String(nuovoSmartphone.getNumeroChiamata());
   for (let credit of credito) credit.innerHTML = String(nuovoSmartphone.carica);
   console.log(utente);
+  displayObject();
 }
 
 function resetCall() {
   charge = String(nuovoSmartphone.azzeraChiamate());
+  outputNumeri.value = "";
+  alert("Hai resettato il numero di chiamate!");
   for (let num of numeroChiamate) num.innerHTML = String(nuovoSmartphone.getNumeroChiamata());
   console.log(utente);
+  displayObject();
 }
 
 function addCharge() {
@@ -170,4 +179,22 @@ function addCharge() {
   for (let credit of credito) credit.innerHTML = String(nuovoSmartphone.carica);
   for (let num of numeroChiamate) num.innerHTML = String(nuovoSmartphone.getNumeroChiamata());
   console.log(utente);
+  displayObject();
+}
+
+function displayNumber() {
+  outputNumeri.value = "prova";
+}
+
+function displayObject() {
+  objectDisplay.style.display = "block";
+  objectDisplay.innerHTML = `               --- CONSOLE LOG --- <br>
+                                            ▼ Utente {nome<: <i>'${utente.nome}'</i>, cognome<: <i>'${utente.cognome}'</i>, smartphone: ${utente.smartphone?.modello}} ℹ️ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           cognome:  <i>"${utente.cognome}"</i> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           nome: <i>"${utente.nome}"</i><br>
+  &nbsp;&nbsp;&nbsp;                           ▼ smartphone: Iphone {carica: <i>${nuovoSmartphone.carica}</i>, numeroChiamate: <i>${nuovoSmartphone.numeroChiamate}</i>, modello: <i>'${nuovoSmartphone.modello}'</i>}<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  carica: <i>${nuovoSmartphone.carica}</i> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  modello: <i>"${nuovoSmartphone.modello}"</i><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  numeroChiamate: <i>${nuovoSmartphone.numeroChiamate}</i>
+  `;
 }

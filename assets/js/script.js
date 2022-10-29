@@ -33,8 +33,16 @@ class Smartphone {
     }
 }
 class Iphone extends Smartphone {
+    constructor() {
+        super(...arguments);
+        this.modello = "Iphone";
+    }
 }
 class SamsungGalaxy extends Smartphone {
+    constructor() {
+        super(...arguments);
+        this.modello = "SamsungGalaxy";
+    }
 }
 let utente;
 let nuovoSmartphone;
@@ -49,7 +57,7 @@ let tastieraChiamata;
 let title;
 let home;
 let smartphones;
-let paragraphs;
+let display;
 let homepage;
 let container;
 let procediButton;
@@ -63,6 +71,8 @@ let numeroChiamate;
 let aggiungiRicarica;
 let charge;
 let call;
+let numbers;
+let objectDisplay;
 //* END GLOBAL VARIABLES FROM DOM
 window.onload = () => {
     getDOM();
@@ -77,7 +87,7 @@ function getDOM() {
     smartphones = document.querySelectorAll(".smartphone");
     title = document.querySelector("#title");
     home = document.querySelector("#home");
-    paragraphs = document.querySelectorAll("p");
+    display = document.querySelector("#display");
     tastieraChiamata = document.querySelector("#tastiera-chiamata");
     procediButton = document.querySelector("#procedi");
     homepage = document.querySelector("#homepage");
@@ -90,25 +100,27 @@ function getDOM() {
     credito = document.querySelectorAll("#credito");
     numeroChiamate = document.querySelectorAll("#numero-chiamate");
     aggiungiRicarica = document.querySelectorAll("#aggiungi-ricarica");
+    numbers = document.querySelectorAll(".number");
+    objectDisplay = document.querySelector("#object-display");
     fineChiamata.addEventListener("click", resetCall);
-    for (let aggRic of aggiungiRicarica) {
+    for (let number of numbers)
+        number.addEventListener("click", (e) => (outputNumeri.value += e.target.id));
+    for (let aggRic of aggiungiRicarica)
         aggRic.addEventListener("click", addCharge);
-    }
     inizioChiamata.addEventListener("click", startCall);
     procediButton.addEventListener("click", nuovoUtente);
-    for (let smartphone of smartphones) {
+    for (let smartphone of smartphones)
         smartphone.addEventListener("click", chooseSmartphone);
-    }
 }
+//* QUI SI CREA UN NUOVO UTENTE
 function nuovoUtente() {
     utente = new Utente(nome.value, cognome.value);
     homepage.style.display = "none";
     container.style.display = "flex";
 }
+//* QUI SI CREA UN NUOVO SMARTPHONE
 function chooseSmartphone(eventClick) {
-    for (let paragraph of paragraphs) {
-        paragraph.style.display = "block";
-    }
+    display.style.display = "block";
     if (eventClick.target.id === "iphone-start-img") {
         iphone.style.display = "none";
         iphone_blank.style.display = "block";
@@ -143,12 +155,16 @@ function startCall() {
     for (let credit of credito)
         credit.innerHTML = String(nuovoSmartphone.carica);
     console.log(utente);
+    displayObject();
 }
 function resetCall() {
     charge = String(nuovoSmartphone.azzeraChiamate());
+    outputNumeri.value = "";
+    alert("Hai resettato il numero di chiamate!");
     for (let num of numeroChiamate)
         num.innerHTML = String(nuovoSmartphone.getNumeroChiamata());
     console.log(utente);
+    displayObject();
 }
 function addCharge() {
     charge = prompt("Quanto vuoi caricare?", "10");
@@ -158,4 +174,21 @@ function addCharge() {
     for (let num of numeroChiamate)
         num.innerHTML = String(nuovoSmartphone.getNumeroChiamata());
     console.log(utente);
+    displayObject();
+}
+function displayNumber() {
+    outputNumeri.value = "prova";
+}
+function displayObject() {
+    var _a;
+    objectDisplay.style.display = "block";
+    objectDisplay.innerHTML = `               --- CONSOLE LOG --- <br>
+                                            ▼ Utente {nome<: <i>'${utente.nome}'</i>, cognome<: <i>'${utente.cognome}'</i>, smartphone: ${(_a = utente.smartphone) === null || _a === void 0 ? void 0 : _a.modello}} ℹ️ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           cognome:  <i>"${utente.cognome}"</i> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           nome: <i>"${utente.nome}"</i><br>
+  &nbsp;&nbsp;&nbsp;                           ▼ smartphone: Iphone {carica: <i>${nuovoSmartphone.carica}</i>, numeroChiamate: <i>${nuovoSmartphone.numeroChiamate}</i>, modello: <i>'${nuovoSmartphone.modello}'</i>}<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  carica: <i>${nuovoSmartphone.carica}</i> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  modello: <i>"${nuovoSmartphone.modello}"</i><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  numeroChiamate: <i>${nuovoSmartphone.numeroChiamate}</i>
+  `;
 }

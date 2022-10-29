@@ -41,7 +41,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 80vh;
   #home {
     cursor: pointer;
     display: none;
@@ -72,17 +72,25 @@ body {
     #samsung-galaxy-img {
       display: none;
     }
-    p {
+    #display {
+      position: fixed;
       display: none;
+      top: 30vh;
+      margin: 0 auto;
+      text-align: center;
+      width: 170px;
+      left: 0;
+      right: 0;
       #aggiungi-ricarica {
         background-color: greenyellow;
         cursor: pointer;
         border-radius: 20px;
-        padding: 5px;
+        padding: 2px;
         border: 1px solid gray;
       }
       #credito {
         font-weight: 900;
+        color: green;
       }
     }
   }
@@ -92,13 +100,19 @@ body {
     width: 170px;
     position: fixed;
     margin: 0 auto;
-    top: 35vh;
+    top: 40vh;
     left: 0;
     right: 0;
     gap: 8px;
+    #output-numeri {
+      text-align: end;
+    }
     input {
       width: 100%;
-      font-size: 30px;
+      font-size: 20px;
+      border: 0;
+      outline: 0;
+      background-color: transparent;
     }
     span {
       cursor: pointer;
@@ -121,5 +135,25 @@ body {
     #fine-chiamata {
       background-color: red;
     }
+  }
+}
+
+#object-display {
+  display: none;
+  position: fixed;
+  font-size: 12px;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background-color: rgb(70, 70, 70, 1);
+  color: white;
+  width: 90%;
+  margin: 0 auto;
+  border: 3px solid rgb(0, 128, 87);
+  border-radius: 10px;
+  i {
+    color: rgb(0, 128, 87);
+    font-weight: 900;
   }
 }
